@@ -20,6 +20,8 @@ function App() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [randomWinner, setRandomWinner] = useState({});
+  const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
+  const [usersCount, setUsersCount] = useState(0);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -28,9 +30,20 @@ function App() {
   }, []);
 
   const users = useFirestore("users");
+  const poolEntries = useFirestore("poolEntries");
+
   useEffect(() => {
     setRandomWinner(pickRandomWinner(users.collData));
+    setUsersCount(users.collData.length);
   }, [users.collData]);
+
+  useEffect(() => {
+    let tempArr = [];
+    poolEntries.collData.forEach((item) => {
+      tempArr.push(item.userID);
+    });
+    setPoolEntriesIDs(tempArr);
+  }, [poolEntries.collData]);
 
   const register = async () => {
     try {
@@ -75,10 +88,29 @@ function App() {
   const logout = async () => {
     await signOut(auth);
   };
-  console.log(randomWinner);
+
+  const handleShoutoutPoolEntries = () => {
+    if (user === null) {
+      alert("Please login first.");
+    } else {
+      if (poolEntriesIDs.includes(user.uid)) {
+        alert("You have already entered today's pool.");
+      } else {
+        try {
+          app.firestore().collection("poolEntries").add({
+            userID: user.uid,
+          });
+        } catch (error) {
+          setError(error);
+        }
+      }
+    }
+  };
+
   return (
     <div className="App">
       <div className="error">{error}</div>
+      <h3>Number of users: {usersCount}</h3>
       <div>
         <h3> Register User </h3>
         <input
@@ -89,6 +121,7 @@ function App() {
           }}
           value={registerEmail}
           disabled={user?.email}
+          required
         />
         <input
           placeholder="Password..."
@@ -98,6 +131,7 @@ function App() {
           }}
           value={registerPassword}
           disabled={user?.email}
+          required
         />
 
         <input
@@ -107,6 +141,7 @@ function App() {
             setWebsiteURL(event.target.value);
           }}
           value={websiteURL}
+          required
         />
 
         <textarea
@@ -149,10 +184,15 @@ function App() {
       </div>
       {user && <h4> User Logged In: </h4>}
       {user?.email}
-      {user && <button onClick={logout}> Sign Out </button>}
-      <h4> Random Winner: </h4>
+      <div>{user && <button onClick={logout}> Sign Out </button>}</div>
+      <h4> Today Shouout goes to: </h4>
       <p>{randomWinner?.websiteURL}</p>
       <p>{randomWinner?.description}</p>
+      <div>
+        <button onClick={handleShoutoutPoolEntries}>
+          Enter Today's Shoutout Pool
+        </button>
+      </div>
     </div>
   );
 }
