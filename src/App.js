@@ -147,9 +147,9 @@ function App() {
           Login
         </button>
       </div>
-      <h4> User Logged In: </h4>
+      {user && <h4> User Logged In: </h4>}
       {user?.email}
-      <button onClick={logout}> Sign Out </button>
+      {user && <button onClick={logout}> Sign Out </button>}
       <h4> Random Winner: </h4>
       <p>{randomWinner?.websiteURL}</p>
       <p>{randomWinner?.description}</p>
