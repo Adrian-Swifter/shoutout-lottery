@@ -23,14 +23,14 @@ function App() {
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
   const [usersCount, setUsersCount] = useState(0);
 
+  const users = useFirestore("users");
+  const poolEntries = useFirestore("poolEntries");
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
-
-  const users = useFirestore("users");
-  const poolEntries = useFirestore("poolEntries");
 
   useEffect(() => {
     setRandomWinner(pickRandomWinner(users.collData));
@@ -58,12 +58,12 @@ function App() {
         description,
         hasWon: null,
       });
-      console.log(user);
       setError("");
       setRegisterEmail("");
       setRegisterPassword("");
+      setWebsiteURL("");
+      setDescription("");
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
   };
@@ -75,12 +75,10 @@ function App() {
         loginEmail,
         loginPassword
       );
-      console.log(user);
       setError("");
       setLoginEmail("");
       setLoginPassword("");
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
   };
@@ -100,6 +98,7 @@ function App() {
           app.firestore().collection("poolEntries").add({
             userID: user.uid,
           });
+          setError("");
         } catch (error) {
           setError(error);
         }
@@ -120,7 +119,6 @@ function App() {
             setRegisterEmail(event.target.value);
           }}
           value={registerEmail}
-          disabled={user?.email}
           required
         />
         <input
@@ -130,7 +128,6 @@ function App() {
             setRegisterPassword(event.target.value);
           }}
           value={registerPassword}
-          disabled={user?.email}
           required
         />
 
@@ -166,7 +163,6 @@ function App() {
             setLoginEmail(event.target.value);
           }}
           value={loginEmail}
-          disabled={user?.email}
         />
         <input
           placeholder="Password..."
@@ -175,7 +171,6 @@ function App() {
             setLoginPassword(event.target.value);
           }}
           value={loginPassword}
-          disabled={user?.email}
         />
 
         <button onClick={login} disabled={user?.email}>
@@ -185,7 +180,7 @@ function App() {
       {user && <h4> User Logged In: </h4>}
       {user?.email}
       <div>{user && <button onClick={logout}> Sign Out </button>}</div>
-      <h4> Today Shouout goes to: </h4>
+      <h4> Today's Shoutout goes to: </h4>
       <p>{randomWinner?.websiteURL}</p>
       <p>{randomWinner?.description}</p>
       <div>
