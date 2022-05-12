@@ -9,6 +9,7 @@ import "./App.css";
 import { auth, app } from "./firebase/firebase_config";
 import useFirestore from "./hooks/useFirestore";
 import pickRandomWinner from "./utils/pickRandomWinner";
+import firebase from "firebase/compat/app";
 
 function App() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -33,16 +34,31 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setRandomWinner(pickRandomWinner(users.collData));
+    const intervalID = setInterval(() => {
+      const randomUserID = pickRandomWinner(poolEntriesIDs);
+      const randomWinnerArr = users.collData.filter(
+        (user) => user.id == randomUserID
+      );
+      setRandomWinner(randomWinnerArr[0]);
+      console.log(randomUserID);
+      poolEntriesIDs.forEach((id) => {
+        app
+          .firestore()
+          .collection("poolEntries")
+          .doc("poolEntriesData")
+          .update({
+            userIDArray: firebase.firestore.FieldValue.arrayRemove(id),
+          });
+      });
+    }, 30000);
+
     setUsersCount(users.collData.length);
-  }, [users.collData]);
+
+    return () => clearInterval(intervalID);
+  }, [users.collData, poolEntriesIDs]);
 
   useEffect(() => {
-    let tempArr = [];
-    poolEntries.collData.forEach((item) => {
-      tempArr.push(item.userID);
-    });
-    setPoolEntriesIDs(tempArr);
+    poolEntries.collData.forEach((item) => setPoolEntriesIDs(item.userIDArray));
   }, [poolEntries.collData]);
 
   const register = async () => {
@@ -91,13 +107,20 @@ function App() {
     if (user === null) {
       alert("Please login first.");
     } else {
-      if (poolEntriesIDs.includes(user.uid)) {
+      if (!poolEntriesIDs || poolEntriesIDs.includes(user.uid)) {
         alert("You have already entered today's pool.");
       } else {
         try {
-          app.firestore().collection("poolEntries").add({
-            userID: user.uid,
-          });
+          app
+            .firestore()
+            .collection("poolEntries")
+            .doc("poolEntriesData")
+            .set(
+              {
+                userIDArray: firebase.firestore.FieldValue.arrayUnion(user.uid),
+              },
+              { merge: true }
+            );
           setError("");
         } catch (error) {
           setError(error);
