@@ -107,7 +107,7 @@ function App() {
     if (user === null) {
       alert("Please login first.");
     } else {
-      if (!poolEntriesIDs || poolEntriesIDs.includes(user.uid)) {
+      if (poolEntriesIDs.includes(user.uid)) {
         alert("You have already entered today's pool.");
       } else {
         try {
