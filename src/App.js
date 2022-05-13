@@ -32,7 +32,7 @@ function App() {
       setUser(currentUser);
     });
   }, []);
-
+  
   useEffect(() => {
     const intervalID = setInterval(() => {
       const randomUserID = pickRandomWinner(poolEntriesIDs);
