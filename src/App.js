@@ -10,6 +10,9 @@ import { auth, app } from "./firebase/firebase_config";
 import useFirestore from "./hooks/useFirestore";
 import pickRandomWinner from "./utils/pickRandomWinner";
 import firebase from "firebase/compat/app";
+import loginIcon from "./assets/login 1.png";
+import userIcon from "./assets/user 1.svg";
+import passwordIcon from "./assets/lock 1.svg";
 
 function App() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -32,7 +35,7 @@ function App() {
       setUser(currentUser);
     });
   }, []);
-  
+
   useEffect(() => {
     const intervalID = setInterval(() => {
       const randomUserID = pickRandomWinner(poolEntriesIDs);
@@ -133,36 +136,45 @@ function App() {
     <div className="App">
       <div className="error">{error}</div>
       <h3>Number of users: {usersCount}</h3>
-      <div>
+      <div className="form">
+        <img src={loginIcon} alt="Lock and User Icon" />
         <h3> Register User </h3>
-        <input
-          placeholder="Email..."
-          type="email"
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }}
-          value={registerEmail}
-          required
-        />
-        <input
-          placeholder="Password..."
-          type="password"
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }}
-          value={registerPassword}
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Website URL"
-          onChange={(event) => {
-            setWebsiteURL(event.target.value);
-          }}
-          value={websiteURL}
-          required
-        />
+        <p>Create a new account</p>
+        <p className="input-w-icon">
+          <img src={userIcon} alt="User Icon" />
+          <input
+            placeholder="Email..."
+            type="email"
+            onChange={(event) => {
+              setRegisterEmail(event.target.value);
+            }}
+            value={registerEmail}
+            required
+          />
+        </p>
+        <p className="input-w-icon">
+          <img src={userIcon} />
+          <input
+            placeholder="Password..."
+            type="password"
+            onChange={(event) => {
+              setRegisterPassword(event.target.value);
+            }}
+            value={registerPassword}
+            required
+          />
+        </p>
+        <p className="input-w-icon">
+          <input
+            type="text"
+            placeholder="Website URL"
+            onChange={(event) => {
+              setWebsiteURL(event.target.value);
+            }}
+            value={websiteURL}
+            required
+          />
+        </p>
 
         <textarea
           type="text"
@@ -173,32 +185,44 @@ function App() {
           value={description}
         ></textarea>
 
-        <button onClick={register} disabled={user?.email}>
+        <button className="primary-btn" onClick={register}>
           Create User
         </button>
+        <p>Already have an account?</p>
+        <button className="secondary-btn">Login into existing account</button>
       </div>
-      <div>
+      <div className="form">
+        <img src={loginIcon} alt="Lock and User Icon" />
         <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          type="email"
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-          value={loginEmail}
-        />
-        <input
-          placeholder="Password..."
-          type="password"
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-          value={loginPassword}
-        />
+        <p>Sign in to your account</p>
+        <p className="input-w-icon">
+          <img src={userIcon} alt="User Icon" />
+          <input
+            placeholder="Email..."
+            type="email"
+            onChange={(event) => {
+              setLoginEmail(event.target.value);
+            }}
+            value={loginEmail}
+          />
+        </p>
+        <p className="input-w-icon">
+          <img src={passwordIcon} alt="Lock Icon" />
+          <input
+            placeholder="Password..."
+            type="password"
+            onChange={(event) => {
+              setLoginPassword(event.target.value);
+            }}
+            value={loginPassword}
+          />
+        </p>
 
-        <button onClick={login} disabled={user?.email}>
+        <button className="primary-btn" onClick={login}>
           Login
         </button>
+        <p>Forgot your pasword? Click here to reset.</p>
+        <button className="secondary-btn">Register New Account</button>
       </div>
       {user && <h4> User Logged In: </h4>}
       {user?.email}

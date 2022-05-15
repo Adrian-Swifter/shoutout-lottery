@@ -1,3 +1,7 @@
+:root {
+  --main-font: "Roboto", sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -5,4 +9,87 @@
 .error {
   background-color: tomato;
   color: white;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h3,
+p {
+  margin: 10px 0;
+  font-family: var(--main-font);
+}
+
+/* LOGIN FORM */
+.form {
+  max-width: 300px;
+  text-align: center;
+  margin: auto;
+  padding: 1.5rem 1.2rem;
+  background-color: #fffafa;
+}
+
+.form > *:not(:first-child) {
+  width: 100%;
+}
+
+.form h3 {
+  font-size: 30px;
+  color: #56599c;
+}
+
+.form p {
+  font-size: 12px;
+}
+
+.input-w-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  background-color: #c4c4c4;
+  padding: 3px;
+  margin-bottom: 1.2rem;
+}
+
+.input-w-icon input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding-left: 5px;
+  height: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--main-font);
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.form textarea {
+  background-color: #c4c4c4;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--main-font);
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.form button {
+  height: 2rem;
+  border: none;
+  background-color: #fcfdff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--main-font);
+  cursor: pointer;
+}
+
+button.primary-btn {
+  background-color: #4277fd;
+  color: #ffffff;
+}
+
+button.secondary-btn {
+  border: 1px solid #000000;
 }
