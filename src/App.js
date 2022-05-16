@@ -23,7 +23,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
-  const [randomWinner, setRandomWinner] = useState({});
+  const [randomWinner, setRandomWinner] = useState(undefined);
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
   const [usersCount, setUsersCount] = useState(0);
 
@@ -53,7 +53,7 @@ function App() {
             userIDArray: firebase.firestore.FieldValue.arrayRemove(id),
           });
       });
-    }, 30000);
+    }, 10000);
 
     setUsersCount(users.collData.length);
 
@@ -135,10 +135,10 @@ function App() {
   return (
     <div className="App">
       <div className="error">{error}</div>
-      <h3>Number of users: {usersCount}</h3>
+      <h3 className="main-heading">Number of users: {usersCount}</h3>
       <div className="form">
         <img src={loginIcon} alt="Lock and User Icon" />
-        <h3> Register User </h3>
+        <h3 className="main-heading"> Register User </h3>
         <p>Create a new account</p>
         <p className="input-w-icon">
           <img src={userIcon} alt="User Icon" />
@@ -185,15 +185,17 @@ function App() {
           value={description}
         ></textarea>
 
-        <button className="primary-btn" onClick={register}>
+        <button className=" btn primary-btn" onClick={register}>
           Create User
         </button>
         <p>Already have an account?</p>
-        <button className="secondary-btn">Login into existing account</button>
+        <button className="btn secondary-btn">
+          Login into existing account
+        </button>
       </div>
       <div className="form">
         <img src={loginIcon} alt="Lock and User Icon" />
-        <h3> Login </h3>
+        <h3 className="main-heading"> Login </h3>
         <p>Sign in to your account</p>
         <p className="input-w-icon">
           <img src={userIcon} alt="User Icon" />
@@ -218,20 +220,32 @@ function App() {
           />
         </p>
 
-        <button className="primary-btn" onClick={login}>
+        <button className="btn primary-btn" onClick={login}>
           Login
         </button>
         <p>Forgot your pasword? Click here to reset.</p>
-        <button className="secondary-btn">Register New Account</button>
+        <button className="btn secondary-btn">Register New Account</button>
       </div>
-      {user && <h4> User Logged In: </h4>}
+      {user && <h3 className="main-heading"> User Logged In: </h3>}
       {user?.email}
-      <div>{user && <button onClick={logout}> Sign Out </button>}</div>
-      <h4> Today's Shoutout goes to: </h4>
-      <p>{randomWinner?.websiteURL}</p>
+      <div>
+        {user && (
+          <button className="btn secondary-btn" onClick={logout}>
+            {" "}
+            Sign Out{" "}
+          </button>
+        )}
+      </div>
+      <h3 className="main-heading"> Today's Shoutout goes to: </h3>
+      <div className="random-winner-link">
+        <a href={randomWinner?.websiteURL} target="_blank">
+          {randomWinner?.websiteURL}
+        </a>
+        {randomWinner && <i className="fa-solid fa-up-right-from-square"></i>}
+      </div>
       <p>{randomWinner?.description}</p>
       <div>
-        <button onClick={handleShoutoutPoolEntries}>
+        <button className="btn primary-btn" onClick={handleShoutoutPoolEntries}>
           Enter Today's Shoutout Pool
         </button>
       </div>

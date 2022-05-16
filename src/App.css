@@ -4,6 +4,9 @@
 
 .App {
   text-align: center;
+  max-width: 800px;
+  margin: auto;
+  font-family: var(--main-font);
 }
 
 .error {
@@ -20,10 +23,14 @@
 h3,
 p {
   margin: 10px 0;
-  font-family: var(--main-font);
 }
 
-/* LOGIN FORM */
+.main-heading {
+  font-size: 30px;
+  color: #56599c;
+}
+
+/* FORMS */
 .form {
   max-width: 300px;
   text-align: center;
@@ -34,11 +41,6 @@ p {
 
 .form > *:not(:first-child) {
   width: 100%;
-}
-
-.form h3 {
-  font-size: 30px;
-  color: #56599c;
 }
 
 .form p {
@@ -73,9 +75,10 @@ p {
   font-weight: 700;
   font-family: var(--main-font);
   color: rgba(0, 0, 0, 0.3);
+  padding-left: 5px;
 }
 
-.form button {
+.btn {
   height: 2rem;
   border: none;
   background-color: #fcfdff;
@@ -92,4 +95,11 @@ button.primary-btn {
 
 button.secondary-btn {
   border: 1px solid #000000;
+}
+
+/* RANDOM WINNER SECTION */
+.random-winner-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
