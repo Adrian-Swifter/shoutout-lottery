@@ -102,4 +102,35 @@ button.secondary-btn {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffcb47;
+}
+
+.random-winner-link a {
+  font-size: 2rem;
+  color: #000000;
+  text-decoration: none;
+  font-family: var(--main-font);
+  transition: 0.3s;
+  padding-right: 5px;
+}
+
+.random-winner-link a:hover {
+  color: #ffffff;
+}
+
+.random-winner-link a:hover ~ i {
+  color: #000000;
+}
+
+.random-winner-link i {
+  font-size: 1.4rem;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.description {
+  font-size: 1.2rem;
+  background-color: #ef798a;
+  color: #ffffff;
+  margin: 0;
 }

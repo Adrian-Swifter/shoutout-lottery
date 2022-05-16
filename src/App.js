@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -40,7 +40,7 @@ function App() {
     const intervalID = setInterval(() => {
       const randomUserID = pickRandomWinner(poolEntriesIDs);
       const randomWinnerArr = users.collData.filter(
-        (user) => user.id == randomUserID
+        (user) => user.id === randomUserID
       );
       setRandomWinner(randomWinnerArr[0]);
       console.log(randomUserID);
@@ -153,7 +153,7 @@ function App() {
           />
         </p>
         <p className="input-w-icon">
-          <img src={userIcon} />
+          <img src={userIcon} alt="User Icon" />
           <input
             placeholder="Password..."
             type="password"
@@ -237,13 +237,30 @@ function App() {
         )}
       </div>
       <h3 className="main-heading"> Today's Shoutout goes to: </h3>
-      <div className="random-winner-link">
-        <a href={randomWinner?.websiteURL} target="_blank">
-          {randomWinner?.websiteURL}
-        </a>
-        {randomWinner && <i className="fa-solid fa-up-right-from-square"></i>}
-      </div>
-      <p>{randomWinner?.description}</p>
+      {randomWinner ? (
+        <>
+          <div className="random-winner-link">
+            <a
+              href={randomWinner?.websiteURL}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {randomWinner?.websiteURL}
+            </a>
+            {randomWinner && (
+              <i className="fa-solid fa-up-right-from-square"></i>
+            )}
+          </div>
+          <p
+            className="description"
+            style={randomWinner && { padding: "1rem" }}
+          >
+            {randomWinner?.description}
+          </p>
+        </>
+      ) : (
+        <p>Nothing to see here :/</p>
+      )}
       <div>
         <button className="btn primary-btn" onClick={handleShoutoutPoolEntries}>
           Enter Today's Shoutout Pool
