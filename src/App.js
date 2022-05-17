@@ -75,12 +75,7 @@ function App() {
         moment.utc(element.timestamp).local().format("YYYY-MM-DD") ===
         moment().format("YYYY-MM-DD")
       ) {
-        console.log(element.user_id, "WINNERS");
         const winnerFromUsers = users.collData.filter((user) => {
-          if (user.id === element.user_id) {
-            console.log(user.id, "USERS");
-          }
-
           return user.id === element.user_id;
         });
         setRandomWinner(winnerFromUsers[0]);
@@ -89,7 +84,7 @@ function App() {
 
     // return () => clearInterval(intervalID);
   }, [users.collData, winner_of_the_day.collData]);
-  console.log(winner_of_the_day.collData);
+
   useEffect(() => {
     poolEntries.collData.forEach((item) => {
       setPoolEntriesIDs(item.userIDArray);
