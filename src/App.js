@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,6 +13,12 @@ import firebase from "firebase/compat/app";
 import loginIcon from "./assets/login 1.png";
 import userIcon from "./assets/user 1.svg";
 import passwordIcon from "./assets/lock 1.svg";
+import moment from "moment";
+
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
 
 function App() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -26,9 +32,11 @@ function App() {
   const [randomWinner, setRandomWinner] = useState(undefined);
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
   const [usersCount, setUsersCount] = useState(0);
-
+  const [shoutOutTime, setShoutOutTime] = useState(null);
   const users = useFirestore("users");
   const poolEntries = useFirestore("poolEntries");
+  const winner_of_the_day = useFirestore("winner_of_the_day");
+  const forceUpdate = useForceUpdate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -37,31 +45,57 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const intervalID = setInterval(() => {
-      const randomUserID = pickRandomWinner(poolEntriesIDs);
-      const randomWinnerArr = users.collData.filter(
-        (user) => user.id === randomUserID
-      );
-      setRandomWinner(randomWinnerArr[0]);
-      console.log(randomUserID);
-      poolEntriesIDs.forEach((id) => {
-        app
-          .firestore()
-          .collection("poolEntries")
-          .doc("poolEntriesData")
-          .update({
-            userIDArray: firebase.firestore.FieldValue.arrayRemove(id),
-          });
-      });
-    }, 10000);
+    // const intervalID = setInterval(() => {
+    //   const randomUserID = pickRandomWinner(poolEntriesIDs);
+    //   const randomWinnerArr = users.collData.filter(
+    //     (user) => user.id === randomUserID
+    //   );
+    //   setRandomWinner(randomWinnerArr[0]);
+    //   console.log(randomUserID);
+    //   poolEntriesIDs.forEach((id) => {
+    //     app
+    //       .firestore()
+    //       .collection("poolEntries")
+    //       .doc("poolEntriesData")
+    //       .update({
+    //         userIDArray: firebase.firestore.FieldValue.arrayRemove(id),
+    //       });
+    //   });
+    // }, 10000);
 
     setUsersCount(users.collData.length);
 
-    return () => clearInterval(intervalID);
-  }, [users.collData, poolEntriesIDs]);
+    winner_of_the_day.collData.forEach((element) => {
+      //gettings todays winner
+      // console.log(
+      //   moment.utc(element.timestamp).local().format('YYYY-MM-DD') ===
+      //     moment().format('YYYY-MM-DD')
+      // )
+      if (
+        moment.utc(element.timestamp).local().format("YYYY-MM-DD") ===
+        moment().format("YYYY-MM-DD")
+      ) {
+        console.log(element.user_id, "WINNERS");
+        const winnerFromUsers = users.collData.filter((user) => {
+          if (user.id === element.user_id) {
+            console.log(user.id, "USERS");
+          }
 
+          return user.id === element.user_id;
+        });
+        setRandomWinner(winnerFromUsers[0]);
+      }
+    });
+
+    // return () => clearInterval(intervalID);
+  }, [users.collData, winner_of_the_day.collData]);
+  console.log(winner_of_the_day.collData);
   useEffect(() => {
-    poolEntries.collData.forEach((item) => setPoolEntriesIDs(item.userIDArray));
+    poolEntries.collData.forEach((item) => {
+      setPoolEntriesIDs(item.userIDArray);
+      setShoutOutTime(item.resultDeclareTime);
+    });
+    // console.log(poolEntries.collData)
   }, [poolEntries.collData]);
 
   const register = async () => {
@@ -261,6 +295,8 @@ function App() {
       ) : (
         <p>Nothing to see here :/</p>
       )}
+      <h4>Next Shoutout in:</h4>
+      <TimeLeft shoutOutTime={shoutOutTime} />
       <div>
         <button className="btn primary-btn" onClick={handleShoutoutPoolEntries}>
           Enter Today's Shoutout Pool
@@ -269,5 +305,58 @@ function App() {
     </div>
   );
 }
+
+const TimeLeft = ({ shoutOutTime }) => {
+  const forceUpdate = useForceUpdate();
+  useEffect(() => {
+    forceUpdate();
+  }, [shoutOutTime]);
+
+  const calculateTimeLeft = () => {
+    const difference =
+      new Date(
+        moment.utc(shoutOutTime).local().format("YYYY-MM-DD HH:mm:ss")
+      ).getTime() - new Date().getTime();
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [year] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+  });
+
+  const timerComponents = [];
+
+  Object.keys(timeLeft).forEach((interval) => {
+    if (!timeLeft[interval]) {
+      return;
+    }
+
+    timerComponents.push(
+      <span>
+        {timeLeft[interval]} {interval}{" "}
+      </span>
+    );
+  });
+  return (
+    <>
+      <span>{timerComponents.length > 0 ? timerComponents : "0 min"} </span>
+    </>
+  );
+};
 
 export default App;
