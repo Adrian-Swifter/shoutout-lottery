@@ -134,3 +134,33 @@ button.secondary-btn {
   color: #ffffff;
   margin: 0;
 }
+
+/* TIMER */
+.timer-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.timer-wrapper > span {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+.timer-number {
+  font-size: 3rem;
+  color: #ffffff;
+  background: #000000;
+  margin: 4px;
+  padding: 2px;
+  font-family: var(--main-font);
+  border-radius: 3px;
+}
+
+.interval-sign {
+  font-family: var(--main-font);
+  color: #ef798a;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}

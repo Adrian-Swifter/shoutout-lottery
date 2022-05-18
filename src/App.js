@@ -290,7 +290,7 @@ function App() {
       ) : (
         <p>Nothing to see here :/</p>
       )}
-      <h4>Next Shoutout in:</h4>
+      <h3 className="main-heading">Next Shoutout in:</h3>
       <TimeLeft shoutOutTime={shoutOutTime} />
       <div>
         <button className="btn primary-btn" onClick={handleShoutoutPoolEntries}>
@@ -336,20 +336,39 @@ const TimeLeft = ({ shoutOutTime }) => {
 
   const timerComponents = [];
 
-  Object.keys(timeLeft).forEach((interval) => {
+  Object.keys(timeLeft).forEach((interval, index) => {
     if (!timeLeft[interval]) {
       return;
     }
 
     timerComponents.push(
-      <span>
-        {timeLeft[interval]} {interval}{" "}
+      <span key={index}>
+        <span className="interval-number">
+          {timeLeft[interval].toString().length > 1 ? (
+            <>
+              <span className="timer-number">
+                {timeLeft[interval].toString().split("")[0]}
+              </span>
+              <span className="timer-number">
+                {timeLeft[interval].toString().split("")[1]}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="timer-number">0</span>
+              <span className="timer-number">{timeLeft[interval]}</span>
+            </>
+          )}
+        </span>
+        <span className="interval-sign">{interval}</span>
       </span>
     );
   });
   return (
     <>
-      <span>{timerComponents.length > 0 ? timerComponents : "0 min"} </span>
+      <span className="timer-wrapper">
+        {timerComponents.length > 0 ? timerComponents : "0 min"}{" "}
+      </span>
     </>
   );
 };
