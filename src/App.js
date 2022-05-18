@@ -292,8 +292,8 @@ function App() {
       )}
       <h3 className="main-heading">Next Shoutout in:</h3>
       <TimeLeft shoutOutTime={shoutOutTime} />
-      <div>
-        <button className="btn primary-btn" onClick={handleShoutoutPoolEntries}>
+      <div style={{ marginBottom: "20px" }}>
+        <button className="threed-btn " onClick={handleShoutoutPoolEntries}>
           Enter Today's Shoutout Pool
         </button>
       </div>

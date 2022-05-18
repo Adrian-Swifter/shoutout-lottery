@@ -164,3 +164,68 @@ button.secondary-btn {
   font-weight: bold;
   margin-top: 0.5rem;
 }
+
+/* 3D BUTTON STYLE */
+.threed-btn {
+  text-decoration: none;
+  font-family: var(--main-font);
+  box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 5px 0px;
+  -moz-box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 5px 0px;
+  -webkit-box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 5px 0px;
+  background: #4277fd;
+  background: -o-linear-gradient(90deg, #4277fd, #5585fd);
+  background: -moz-linear-gradient(center top, #4277fd 5%, #5585fd 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #4277fd),
+    color-stop(1, #5585fd)
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4277fd', endColorstr='#5585fd');
+  background: -webkit-linear-gradient(#4277fd, #5585fd);
+  background: -ms-linear-gradient(#4277fd, #5585fd);
+  background: linear-gradient(#4277fd, #5585fd);
+  text-indent: 0px;
+  line-height: 30px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
+  color: #ffffff;
+  text-shadow: #7d7d7d 0px 1px 0px;
+  border-color: #ffffff;
+  border-width: 0px;
+  border-style: solid;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 5px 20px;
+}
+
+.threed-btn:active {
+  box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 0 0px;
+  -moz-box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 0 0px;
+  -webkit-box-shadow: inset #7ba0fe 0px 5px 8px -1px, #2e53b1 0px 0 0px;
+  position: relative;
+  top: 5px;
+}
+
+.threed-btn:hover {
+  background: #5585fd;
+  background: -o-linear-gradient(90deg, #5585fd, #4277fd);
+  background: -moz-linear-gradient(center top, #5585fd 5%, #4277fd 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #5585fd),
+    color-stop(1, #4277fd)
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5585fd', endColorstr='#4277fd');
+  background: -webkit-linear-gradient(#5585fd, #4277fd);
+  background: -ms-linear-gradient(#5585fd, #4277fd);
+  background: linear-gradient(#5585fd, #4277fd);
+}
