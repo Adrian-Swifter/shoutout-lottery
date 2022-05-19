@@ -35,7 +35,7 @@ function App() {
   const [shoutOutTime, setShoutOutTime] = useState(null);
   const users = useFirestore("users");
   const poolEntries = useFirestore("poolEntries");
-  const winner_of_the_day = useFirestore("winner_of_the_day");
+  const last_winner = useFirestore('last_winner')
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
@@ -45,52 +45,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // const intervalID = setInterval(() => {
-    //   const randomUserID = pickRandomWinner(poolEntriesIDs);
-    //   const randomWinnerArr = users.collData.filter(
-    //     (user) => user.id === randomUserID
-    //   );
-    //   setRandomWinner(randomWinnerArr[0]);
-    //   console.log(randomUserID);
-    //   poolEntriesIDs.forEach((id) => {
-    //     app
-    //       .firestore()
-    //       .collection("poolEntries")
-    //       .doc("poolEntriesData")
-    //       .update({
-    //         userIDArray: firebase.firestore.FieldValue.arrayRemove(id),
-    //       });
-    //   });
-    // }, 10000);
+    setUsersCount(users.collData.length)
 
-    setUsersCount(users.collData.length);
-
-    winner_of_the_day.collData.forEach((element) => {
-      //gettings todays winner
-      // console.log(
-      //   moment.utc(element.timestamp).local().format('YYYY-MM-DD') ===
-      //     moment().format('YYYY-MM-DD')
-      // )
-      if (
-        moment.utc(element.timestamp).local().format("YYYY-MM-DD") ===
-        moment().format("YYYY-MM-DD")
-      ) {
-        const winnerFromUsers = users.collData.filter((user) => {
-          return user.id === element.user_id;
-        });
-        setRandomWinner(winnerFromUsers[0]);
-      }
-    });
-
-    // return () => clearInterval(intervalID);
-  }, [users.collData, winner_of_the_day.collData]);
+    last_winner.collData.forEach((element) => {
+      const winnerFromUsers = users.collData.filter(
+        (user) => user.id === element.last_winner
+      )
+      setRandomWinner(winnerFromUsers[0])
+    })
+  }, [users.collData, last_winner.collData])
 
   useEffect(() => {
     poolEntries.collData.forEach((item) => {
       setPoolEntriesIDs(item.userIDArray);
       setShoutOutTime(item.resultDeclareTime);
     });
-    // console.log(poolEntries.collData)
   }, [poolEntries.collData]);
 
   const register = async () => {
