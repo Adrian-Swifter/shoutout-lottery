@@ -53,11 +53,12 @@ function App() {
       setRandomWinner(winnerFromUsers[0]);
     });
 
-    const loggedInUserHasWon = users.collData.filter((singleUser) => {
-      return singleUser.id === user.uid;
-    });
-
-    setHasWonTime(loggedInUserHasWon[0]?.hasWon);
+    if (user) {
+      const loggedInUserHasWon = users.collData.filter((singleUser) => {
+        return singleUser.id === user.uid;
+      });
+      setHasWonTime(loggedInUserHasWon[0]?.hasWon);
+    }
   }, [users.collData, last_winner.collData]);
 
   useEffect(() => {
