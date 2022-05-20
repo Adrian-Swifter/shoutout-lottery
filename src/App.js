@@ -8,7 +8,6 @@ import {
 import "./App.css";
 import { auth, app } from "./firebase/firebase_config";
 import useFirestore from "./hooks/useFirestore";
-import pickRandomWinner from "./utils/pickRandomWinner";
 import firebase from "firebase/compat/app";
 import loginIcon from "./assets/login 1.png";
 import userIcon from "./assets/user 1.svg";
@@ -33,10 +32,10 @@ function App() {
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
   const [usersCount, setUsersCount] = useState(0);
   const [shoutOutTime, setShoutOutTime] = useState(null);
+  const [hasWonTime, setHasWonTime] = useState("");
   const users = useFirestore("users");
   const poolEntries = useFirestore("poolEntries");
-  const last_winner = useFirestore('last_winner')
-  const forceUpdate = useForceUpdate();
+  const last_winner = useFirestore("last_winner");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -45,15 +44,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setUsersCount(users.collData.length)
+    setUsersCount(users.collData.length);
 
     last_winner.collData.forEach((element) => {
       const winnerFromUsers = users.collData.filter(
         (user) => user.id === element.last_winner
-      )
-      setRandomWinner(winnerFromUsers[0])
-    })
-  }, [users.collData, last_winner.collData])
+      );
+      setRandomWinner(winnerFromUsers[0]);
+    });
+
+    const loggedInUserHasWon = users.collData.filter((singleUser) => {
+      return singleUser.id === user.uid;
+    });
+
+    setHasWonTime(loggedInUserHasWon[0]?.hasWon);
+  }, [users.collData, last_winner.collData]);
 
   useEffect(() => {
     poolEntries.collData.forEach((item) => {
@@ -105,11 +110,24 @@ function App() {
   };
 
   const handleShoutoutPoolEntries = () => {
+    const now = moment(new Date()); //todays date
+    const end = hasWonTime; // another date
+    const duration = moment.duration(now.diff(end));
+    const minutes = Math.floor(duration.asMinutes());
+
     if (user === null) {
       alert("Please login first.");
     } else {
       if (poolEntriesIDs.includes(user.uid)) {
         alert("You have already entered today's pool.");
+      } else if (hasWonTime !== null && minutes < 5) {
+        alert(
+          "You won " +
+            minutes +
+            " min ago. Please wait for " +
+            (5 - minutes) +
+            " min."
+        );
       } else {
         try {
           app
