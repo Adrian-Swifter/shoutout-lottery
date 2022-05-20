@@ -13,6 +13,7 @@ import loginIcon from "./assets/login 1.png";
 import userIcon from "./assets/user 1.svg";
 import passwordIcon from "./assets/lock 1.svg";
 import moment from "moment";
+import Button from "./UI/Button";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -202,13 +203,13 @@ function App() {
           value={description}
         ></textarea>
 
-        <button className=" btn primary-btn" onClick={register}>
-          Create User
-        </button>
+        <Button classes="btn primary-btn" fn={register} title="Create User" />
         <p>Already have an account?</p>
-        <button className="btn secondary-btn">
-          Login into existing account
-        </button>
+
+        <Button
+          classes="btn secondary-btn"
+          title="Login into existing account"
+        />
       </div>
       <div className="form">
         <img src={loginIcon} alt="Lock and User Icon" />
@@ -236,12 +237,10 @@ function App() {
             value={loginPassword}
           />
         </p>
-
-        <button className="btn primary-btn" onClick={login}>
-          Login
-        </button>
+        <Button classes="btn primary-btn" fn={login} title="Login" />
         <p>Forgot your pasword? Click here to reset.</p>
-        <button className="btn secondary-btn">Register New Account</button>
+
+        <Button classes="btn secondary-btn" title="Register New Account" />
       </div>
       {user && <h3 className="main-heading"> User Logged In: </h3>}
       {user?.email}
@@ -281,9 +280,11 @@ function App() {
       <h3 className="main-heading">Next Shoutout in:</h3>
       <TimeLeft shoutOutTime={shoutOutTime} />
       <div style={{ marginBottom: "20px" }}>
-        <button className="threed-btn " onClick={handleShoutoutPoolEntries}>
-          Enter Today's Shoutout Pool
-        </button>
+        <Button
+          classes="threed-btn"
+          fn={handleShoutoutPoolEntries}
+          title=" Enter Today's Shoutout Pool"
+        />
       </div>
     </div>
   );
