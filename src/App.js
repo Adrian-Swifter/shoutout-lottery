@@ -14,6 +14,10 @@ import userIcon from "./assets/user 1.svg";
 import passwordIcon from "./assets/lock 1.svg";
 import moment from "moment";
 import Button from "./UI/Button";
+import Login from "./routes/Login";
+import Register from "./routes/Register";
+
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -21,12 +25,6 @@ function useForceUpdate() {
 }
 
 function App() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [websiteURL, setWebsiteURL] = useState("");
-  const [description, setDescription] = useState("");
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [randomWinner, setRandomWinner] = useState(undefined);
@@ -68,44 +66,6 @@ function App() {
       setShoutOutTime(item.resultDeclareTime);
     });
   }, [poolEntries.collData]);
-
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-
-      app.firestore().collection("users").doc(user.user.uid).set({
-        websiteURL,
-        description,
-        hasWon: null,
-      });
-      setError("");
-      setRegisterEmail("");
-      setRegisterPassword("");
-      setWebsiteURL("");
-      setDescription("");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      setError("");
-      setLoginEmail("");
-      setLoginPassword("");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
 
   const logout = async () => {
     await signOut(auth);
@@ -151,142 +111,85 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="error">{error}</div>
-      <h3 className="main-heading">Number of users: {usersCount}</h3>
-      <div className="form">
-        <img src={loginIcon} alt="Lock and User Icon" />
-        <h3 className="main-heading"> Register User </h3>
-        <p>Create a new account</p>
-        <p className="input-w-icon">
-          <img src={userIcon} alt="User Icon" />
-          <input
-            placeholder="Email..."
-            type="email"
-            onChange={(event) => {
-              setRegisterEmail(event.target.value);
-            }}
-            value={registerEmail}
-            required
+    <Router>
+      <div className="App">
+        <div className="error">{error}</div>
+        <h3 className="main-heading">Number of users: {usersCount}</h3>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <Login
+                loginIcon={loginIcon}
+                userIcon={userIcon}
+                passwordIcon={passwordIcon}
+                setError={setError}
+                signInWithEmailAndPassword={signInWithEmailAndPassword}
+              />
+            }
           />
-        </p>
-        <p className="input-w-icon">
-          <img src={userIcon} alt="User Icon" />
-          <input
-            placeholder="Password..."
-            type="password"
-            onChange={(event) => {
-              setRegisterPassword(event.target.value);
-            }}
-            value={registerPassword}
-            required
+          <Route
+            path="/register"
+            element={
+              <Register
+                createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+                setError={setError}
+                userIcon={userIcon}
+                passwordIcon={passwordIcon}
+                loginIcon={loginIcon}
+              />
+            }
           />
-        </p>
-        <p className="input-w-icon">
-          <input
-            type="text"
-            placeholder="Website URL"
-            onChange={(event) => {
-              setWebsiteURL(event.target.value);
-            }}
-            value={websiteURL}
-            required
-          />
-        </p>
+        </Routes>
 
-        <textarea
-          type="text"
-          placeholder="Description"
-          onChange={(event) => {
-            setDescription(event.target.value);
-          }}
-          value={description}
-        ></textarea>
-
-        <Button classes="btn primary-btn" fn={register} title="Create User" />
-        <p>Already have an account?</p>
-
-        <Button
-          classes="btn secondary-btn"
-          title="Login into existing account"
-        />
-      </div>
-      <div className="form">
-        <img src={loginIcon} alt="Lock and User Icon" />
-        <h3 className="main-heading"> Login </h3>
-        <p>Sign in to your account</p>
-        <p className="input-w-icon">
-          <img src={userIcon} alt="User Icon" />
-          <input
-            placeholder="Email..."
-            type="email"
-            onChange={(event) => {
-              setLoginEmail(event.target.value);
-            }}
-            value={loginEmail}
-          />
-        </p>
-        <p className="input-w-icon">
-          <img src={passwordIcon} alt="Lock Icon" />
-          <input
-            placeholder="Password..."
-            type="password"
-            onChange={(event) => {
-              setLoginPassword(event.target.value);
-            }}
-            value={loginPassword}
-          />
-        </p>
-        <Button classes="btn primary-btn" fn={login} title="Login" />
-        <p>Forgot your pasword? Click here to reset.</p>
-
-        <Button classes="btn secondary-btn" title="Register New Account" />
-      </div>
-      {user && <h3 className="main-heading"> User Logged In: </h3>}
-      {user?.email}
-      <div>
-        {user && (
-          <button className="btn secondary-btn" onClick={logout}>
-            {" "}
-            Sign Out{" "}
-          </button>
-        )}
-      </div>
-      <h3 className="main-heading"> Today's Shoutout goes to: </h3>
-      {randomWinner ? (
-        <>
-          <div className="random-winner-link">
-            <a
-              href={randomWinner?.websiteURL}
-              target="_blank"
-              rel="noreferrer noopener"
+        {user && <h3 className="main-heading"> User Logged In: </h3>}
+        {user?.email}
+        <div>
+          {user && (
+            <button className="btn secondary-btn" onClick={logout}>
+              {" "}
+              Sign Out{" "}
+            </button>
+          )}
+        </div>
+        <h3 className="main-heading"> Today's Shoutout goes to: </h3>
+        {randomWinner ? (
+          <>
+            <div className="random-winner-link">
+              <a
+                href={randomWinner?.websiteURL}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {randomWinner?.websiteURL}
+              </a>
+              {randomWinner && (
+                <i className="fa-solid fa-up-right-from-square"></i>
+              )}
+            </div>
+            <p
+              className="description"
+              style={randomWinner && { padding: "1rem" }}
             >
-              {randomWinner?.websiteURL}
-            </a>
-            {randomWinner && (
-              <i className="fa-solid fa-up-right-from-square"></i>
-            )}
-          </div>
-          <p
-            className="description"
-            style={randomWinner && { padding: "1rem" }}
-          >
-            {randomWinner?.description}
-          </p>
-        </>
-      ) : (
-        <p>Nothing to see here :/</p>
-      )}
-      <h3 className="main-heading">Next Shoutout in:</h3>
-      <TimeLeft shoutOutTime={shoutOutTime} />
-      <div style={{ marginBottom: "20px" }}>
-        <Button
-          classes="threed-btn"
-          fn={handleShoutoutPoolEntries}
-          title=" Enter Today's Shoutout Pool"
-        />
+              {randomWinner?.description}
+            </p>
+          </>
+        ) : (
+          <p>Nothing to see here :/</p>
+        )}
+        <h3 className="main-heading">Next Shoutout in:</h3>
+        <TimeLeft shoutOutTime={shoutOutTime} />
+        <div style={{ marginBottom: "20px" }}>
+          <Button
+            classes="threed-btn"
+            fn={handleShoutoutPoolEntries}
+            title=" Enter Today's Shoutout Pool"
+          />
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
