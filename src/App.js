@@ -8,6 +8,7 @@ import {
 import "./App.css";
 import { auth, app } from "./firebase/firebase_config";
 import useFirestore from "./hooks/useFirestore";
+import useForceUpdate from "./hooks/useForceUpdate";
 import firebase from "firebase/compat/app";
 import loginIcon from "./assets/login 1.png";
 import userIcon from "./assets/user 1.svg";
@@ -18,11 +19,6 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue((value) => value + 1); // update the state to force render
-}
 
 function App() {
   const [user, setUser] = useState({});
