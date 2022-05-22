@@ -24,9 +24,6 @@ function App() {
     <Router>
       <div className="App">
         <div className="error">{error}</div>
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
         <Routes>
           <Route
             path="/"
