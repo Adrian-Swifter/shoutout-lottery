@@ -229,3 +229,17 @@ button.secondary-btn {
   background: -ms-linear-gradient(#5585fd, #4277fd);
   background: linear-gradient(#5585fd, #4277fd);
 }
+
+/* NAV MENU */
+/* reset */
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}

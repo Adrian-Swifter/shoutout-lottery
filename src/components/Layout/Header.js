@@ -8,33 +8,41 @@ function Header({ user, usersCount, signOut }) {
   };
 
   return (
-    <div>
-      <h3 className="main-heading">Number of users: {usersCount}</h3>
+    <header>
+      <p>
+        <i class="fa-solid fa-users"></i> <span>{usersCount}</span>
+      </p>
       <nav>
         <ul>
           <li>
+            <i class="fa-solid fa-house"></i>
             <Link to="/">Home</Link>
           </li>
           <li>
+            <i class="fa-solid fa-right-to-bracket"></i>
             <Link to="/login">Login</Link>
           </li>
           <li>
+            <i class="fa-solid fa-user-plus"></i>
             <Link to="/register">Register</Link>
           </li>
         </ul>
       </nav>
-
-      {user && <h3 className="main-heading"> User Logged In: </h3>}
-      {user?.email}
       <div>
         {user && (
-          <button className="btn secondary-btn" onClick={logout}>
-            {" "}
-            Sign Out{" "}
-          </button>
+          <>
+            <p>
+              <i class="fa-solid fa-user"></i>
+              <span>{user?.email}</span>
+            </p>
+
+            <button className="btn secondary-btn" onClick={logout}>
+              Sign Out <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </>
         )}
       </div>
-    </div>
+    </header>
   );
 }
 
