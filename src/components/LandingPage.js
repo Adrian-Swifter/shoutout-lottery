@@ -3,15 +3,15 @@ import Button from "../UI/Button";
 import TimeLeft from "../components/TimeLeft";
 import useFirestore from "../hooks/useFirestore";
 import firebase from "firebase/compat/app";
-import { auth, app } from "../firebase/firebase_config";
+import { app } from "../firebase/firebase_config";
 import moment from "moment";
 import Header from "./Layout/Header";
 
-function LandingPage({ onAuthStateChanged, signOut, setError }) {
+function LandingPage({ signOut, setError, user, usersCount }) {
   const [randomWinner, setRandomWinner] = useState(undefined);
-  const [user, setUser] = useState({});
+
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
-  const [usersCount, setUsersCount] = useState(0);
+
   const [shoutOutTime, setShoutOutTime] = useState(null);
   const [hasWonTime, setHasWonTime] = useState("");
 
@@ -20,7 +20,6 @@ function LandingPage({ onAuthStateChanged, signOut, setError }) {
   const last_winner = useFirestore("last_winner");
 
   useEffect(() => {
-    setUsersCount(users.collData.length);
 
     last_winner.collData.forEach((element) => {
       const winnerFromUsers = users.collData.filter(
@@ -36,12 +35,6 @@ function LandingPage({ onAuthStateChanged, signOut, setError }) {
       setHasWonTime(loggedInUserHasWon[0]?.hasWon);
     }
   }, [users.collData, last_winner.collData]);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
 
   useEffect(() => {
     poolEntries.collData.forEach((item) => {

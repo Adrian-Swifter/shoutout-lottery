@@ -253,6 +253,7 @@ header {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 0.5rem 1rem;
   border-radius: 0 0 7px 7px;
+  margin-bottom: 3rem;
 }
 
 header > * {
@@ -267,6 +268,10 @@ header > * {
   transition: all 0.3s;
 }
 
+.list-item a {
+  color: #56599c;
+}
+
 .list-item a:hover,
 .list-item a:hover + i {
   color: #ef798a;
@@ -274,10 +279,34 @@ header > * {
 
 .list-item > * {
   margin: 3px 0;
-  color: #56599c;
 }
 
 i {
   font-size: 1.2em;
   transition: all 0.3s;
+  color: #56599c;
+}
+
+.logged-user p {
+  margin-right: 0.5rem;
+}
+
+.logged-user button,
+.logged-user p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logged-user button i {
+  margin-left: 0.3rem;
+}
+
+.logged-user p span,
+.no-of-users span {
+  background-color: #56599c;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 0.3rem;
 }

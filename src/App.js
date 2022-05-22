@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth } from "./firebase/firebase_config";
 import "./App.css";
 import {
   createUserWithEmailAndPassword,
@@ -6,6 +7,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+import useFirestore from "./hooks/useFirestore";
 
 import loginIcon from "./assets/login 1.png";
 import userIcon from "./assets/user 1.svg";
@@ -15,10 +17,23 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import LandingPage from "./components/LandingPage";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [error, setError] = useState("");
+  const [user, setUser] = useState({});
+  const [usersCount, setUsersCount] = useState(0);
+  const users = useFirestore("users");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
+
+  useEffect(() => {
+    setUsersCount(users.collData.length);
+  }, [users.collData]);
 
   return (
     <Router>
@@ -29,9 +44,10 @@ function App() {
             path="/"
             element={
               <LandingPage
-                onAuthStateChanged={onAuthStateChanged}
                 signOut={signOut}
                 setError={setError}
+                user={user}
+                usersCount={usersCount}
               />
             }
           />
@@ -44,6 +60,9 @@ function App() {
                 passwordIcon={passwordIcon}
                 setError={setError}
                 signInWithEmailAndPassword={signInWithEmailAndPassword}
+                user={user}
+                usersCount={usersCount}
+                signOut={signOut}
               />
             }
           />
@@ -56,6 +75,9 @@ function App() {
                 userIcon={userIcon}
                 passwordIcon={passwordIcon}
                 loginIcon={loginIcon}
+                user={user}
+                usersCount={usersCount}
+                signOut={signOut}
               />
             }
           />
