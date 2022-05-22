@@ -234,6 +234,7 @@ button.secondary-btn {
 /* reset */
 ul {
   padding-left: 0;
+  display: flex;
 }
 
 li {
@@ -242,4 +243,13 @@ li {
 
 a {
   text-decoration: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header > * {
+  display: flex;
 }
