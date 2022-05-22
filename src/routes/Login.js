@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { auth } from "../firebase/firebase_config";
 import { Link } from "react-router-dom";
+import Header from "../components/Layout/Header";
 
 function Login({
   loginIcon,
@@ -28,6 +29,8 @@ function Login({
     }
   };
   return (
+    <>
+    <Header />
     <div className="form">
       <img src={loginIcon} alt="Lock and User Icon" />
       <h3 className="main-heading"> Login </h3>
@@ -61,6 +64,8 @@ function Login({
         <Button classes="btn secondary-btn" title="Register New Account" />
       </Link>
     </div>
+    </>
+    
   );
 }
 

@@ -10,7 +10,7 @@
 }
 
 .error {
-  background-color: tomato;
+  background-color: #ef798a;
   color: white;
 }
 
@@ -233,7 +233,8 @@ button.secondary-btn {
 /* NAV MENU */
 /* reset */
 ul {
-  padding-left: 0;
+  padding: 0;
+  margin: 0;
   display: flex;
 }
 
@@ -243,13 +244,40 @@ li {
 
 a {
   text-decoration: none;
+  transition: all 0.3s;
 }
 
 header {
   display: flex;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 7px 7px;
 }
 
 header > * {
   display: flex;
+  align-items: center;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 2rem;
+  transition: all 0.3s;
+}
+
+.list-item a:hover,
+.list-item a:hover + i {
+  color: #ef798a;
+}
+
+.list-item > * {
+  margin: 3px 0;
+  color: #56599c;
+}
+
+i {
+  font-size: 1.2em;
+  transition: all 0.3s;
 }
