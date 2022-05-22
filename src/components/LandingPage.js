@@ -5,6 +5,7 @@ import useFirestore from "../hooks/useFirestore";
 import firebase from "firebase/compat/app";
 import { auth, app } from "../firebase/firebase_config";
 import moment from "moment";
+import Header from "./Layout/Header";
 
 function LandingPage({ onAuthStateChanged, signOut, setError }) {
   const [randomWinner, setRandomWinner] = useState(undefined);
@@ -17,10 +18,6 @@ function LandingPage({ onAuthStateChanged, signOut, setError }) {
   const users = useFirestore("users");
   const poolEntries = useFirestore("poolEntries");
   const last_winner = useFirestore("last_winner");
-
-  const logout = async () => {
-    await signOut(auth);
-  };
 
   useEffect(() => {
     setUsersCount(users.collData.length);
@@ -94,17 +91,8 @@ function LandingPage({ onAuthStateChanged, signOut, setError }) {
 
   return (
     <>
-      <h3 className="main-heading">Number of users: {usersCount}</h3>
-      {user && <h3 className="main-heading"> User Logged In: </h3>}
-      {user?.email}
-      <div>
-        {user && (
-          <button className="btn secondary-btn" onClick={logout}>
-            {" "}
-            Sign Out{" "}
-          </button>
-        )}
-      </div>
+      <Header user={user} usersCount={usersCount} signOut={signOut} />
+
       <h3 className="main-heading"> Today's Shoutout goes to: </h3>
       {randomWinner ? (
         <>
