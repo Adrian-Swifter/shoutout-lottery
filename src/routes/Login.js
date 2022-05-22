@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import { auth } from "../firebase/firebase_config";
+import { Link } from "react-router-dom";
 
 function Login({
   loginIcon,
@@ -56,7 +57,9 @@ function Login({
       <Button classes="btn primary-btn" fn={login} title="Login" />
       <p>Forgot your pasword? Click here to reset.</p>
 
-      <Button classes="btn secondary-btn" title="Register New Account" />
+      <Link to="/register">
+        <Button classes="btn secondary-btn" title="Register New Account" />
+      </Link>
     </div>
   );
 }

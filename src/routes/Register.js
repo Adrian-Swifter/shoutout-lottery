@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import { auth, app } from "../firebase/firebase_config";
+import { Link } from "react-router-dom";
 
 function Register({
   createUserWithEmailAndPassword,
@@ -90,7 +91,12 @@ function Register({
       <Button classes="btn primary-btn" fn={register} title="Create User" />
       <p>Already have an account?</p>
 
-      <Button classes="btn secondary-btn" title="Login into existing account" />
+      <Link to="/login">
+        <Button
+          classes="btn secondary-btn"
+          title="Login into existing account"
+        />
+      </Link>
     </div>
   );
 }
