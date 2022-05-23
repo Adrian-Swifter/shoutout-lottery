@@ -88,7 +88,7 @@ function LandingPage({ signOut, setError, user, usersCount }) {
 
       <h3 className="main-heading"> Today's Shoutout goes to: </h3>
       {randomWinner ? (
-        <>
+        <main className="main-winner-section">
           <div className="random-winner-link">
             <a
               href={randomWinner?.websiteURL}
@@ -107,7 +107,7 @@ function LandingPage({ signOut, setError, user, usersCount }) {
           >
             {randomWinner?.description}
           </p>
-        </>
+        </main>
       ) : (
         <p>Nothing to see here :/</p>
       )}
