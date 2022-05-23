@@ -1,5 +1,5 @@
 :root {
-  --main-font: 'Titillium Web', sans-serif;
+  --main-font: "Titillium Web", sans-serif;
 }
 
 .App {
@@ -139,6 +139,7 @@ button.secondary-btn {
 .timer-wrapper {
   display: flex;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .timer-wrapper > span {

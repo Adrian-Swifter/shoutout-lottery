@@ -20,7 +20,6 @@ function LandingPage({ signOut, setError, user, usersCount }) {
   const last_winner = useFirestore("last_winner");
 
   useEffect(() => {
-
     last_winner.collData.forEach((element) => {
       const winnerFromUsers = users.collData.filter(
         (user) => user.id === element.last_winner
@@ -75,6 +74,7 @@ function LandingPage({ signOut, setError, user, usersCount }) {
               { merge: true }
             );
           setError("");
+          alert("You have successfully entered today's pool.");
         } catch (error) {
           setError(error);
         }

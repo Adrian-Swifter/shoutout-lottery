@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useForceUpdate from "../hooks/useForceUpdate";
 import moment from "moment";
+import danceGif from "../assets/happy-dance.gif";
 
 const TimeLeft = ({ shoutOutTime }) => {
   const forceUpdate = useForceUpdate();
@@ -68,7 +69,7 @@ const TimeLeft = ({ shoutOutTime }) => {
   return (
     <>
       <span className="timer-wrapper">
-        {timerComponents.length > 0 ? timerComponents : "0 min"}{" "}
+        {timerComponents.length > 0 ? timerComponents : <img src={danceGif} width="200" alt="happy dance gif"/>}
       </span>
     </>
   );
