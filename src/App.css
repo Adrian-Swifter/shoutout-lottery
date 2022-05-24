@@ -1,5 +1,5 @@
 :root {
-  --main-font: "Roboto", sans-serif;
+  --main-font: "Titillium Web", sans-serif;
 }
 
 .App {
@@ -10,7 +10,7 @@
 }
 
 .error {
-  background-color: tomato;
+  background-color: #ef798a;
   color: white;
 }
 
@@ -98,40 +98,40 @@ button.secondary-btn {
 }
 
 /* RANDOM WINNER SECTION */
+.main-winner-section {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 7px;
+}
+
 .random-winner-link {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffcb47;
 }
 
 .random-winner-link a {
   font-size: 2rem;
-  color: #000000;
   text-decoration: none;
-  font-family: var(--main-font);
   transition: 0.3s;
   padding-right: 5px;
+  color: #000;
 }
 
 .random-winner-link a:hover {
-  color: #ffffff;
+  text-decoration: underline;
 }
 
-.random-winner-link a:hover ~ i {
+/* .random-winner-link a:hover ~ i {
   color: #000000;
-}
+} */
 
 .random-winner-link i {
   font-size: 1.4rem;
-  color: #ffffff;
   transition: 0.3s;
 }
 
 .description {
   font-size: 1.2rem;
-  background-color: #ef798a;
-  color: #ffffff;
   margin: 0;
 }
 
@@ -139,6 +139,7 @@ button.secondary-btn {
 .timer-wrapper {
   display: flex;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .timer-wrapper > span {
@@ -228,4 +229,85 @@ button.secondary-btn {
   background: -webkit-linear-gradient(#5585fd, #4277fd);
   background: -ms-linear-gradient(#5585fd, #4277fd);
   background: linear-gradient(#5585fd, #4277fd);
+}
+
+/* NAV MENU */
+/* reset */
+ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 7px 7px;
+  margin-bottom: 3rem;
+}
+
+header > * {
+  display: flex;
+  align-items: center;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 2rem;
+  transition: all 0.3s;
+}
+
+.list-item a {
+  color: #56599c;
+}
+
+.list-item a:hover,
+.list-item a:hover + i {
+  color: #ef798a;
+}
+
+.list-item > * {
+  margin: 3px 0;
+}
+
+i {
+  font-size: 1.2em;
+  transition: all 0.3s;
+  color: #56599c;
+}
+
+.logged-user p {
+  margin-right: 0.5rem;
+}
+
+.logged-user button,
+.logged-user p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logged-user button i {
+  margin-left: 0.3rem;
+}
+
+.logged-user p span,
+.no-of-users span {
+  background-color: #56599c;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 0.3rem;
 }
