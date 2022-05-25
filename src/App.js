@@ -24,6 +24,8 @@ function App() {
   const [user, setUser] = useState({});
   const [usersCount, setUsersCount] = useState(0);
   const users = useFirestore("users");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -48,6 +50,10 @@ function App() {
                 setError={setError}
                 user={user}
                 usersCount={usersCount}
+                setModalOpen={setModalOpen}
+                modalOpen={modalOpen}
+                modalMessage={modalMessage}
+                setModalMessage={setModalMessage}
               />
             }
           />

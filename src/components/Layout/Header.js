@@ -8,7 +8,7 @@ function Header({ user, usersCount, signOut }) {
   };
 
   return (
-    <header>
+    <header className="nav-header">
       <p className="no-of-users">
         <i className="fa-solid fa-users"></i> <span>{usersCount}</span>
       </p>

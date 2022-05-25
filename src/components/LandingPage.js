@@ -6,8 +6,18 @@ import firebase from "firebase/compat/app";
 import { app } from "../firebase/firebase_config";
 import moment from "moment";
 import Header from "./Layout/Header";
+import Modal from "../UI/Modal";
 
-function LandingPage({ signOut, setError, user, usersCount }) {
+function LandingPage({
+  signOut,
+  setError,
+  user,
+  usersCount,
+  modalOpen,
+  setModalOpen,
+  setModalMessage,
+  modalMessage,
+}) {
   const [randomWinner, setRandomWinner] = useState(undefined);
 
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
@@ -49,18 +59,21 @@ function LandingPage({ signOut, setError, user, usersCount }) {
     const minutes = Math.floor(duration.asMinutes());
 
     if (user === null) {
-      alert("Please login first.");
+      setModalMessage("Please login first.");
+      setModalOpen(true);
     } else {
       if (poolEntriesIDs.includes(user.uid)) {
-        alert("You have already entered today's pool.");
+        setModalMessage("You have already entered today's pool.");
+        setModalOpen(true);
       } else if (hasWonTime !== null && minutes < 5) {
-        alert(
+        setModalMessage(
           "You won " +
             minutes +
             " min ago. Please wait for " +
             (5 - minutes) +
             " min."
         );
+        setModalOpen(true);
       } else {
         try {
           app
@@ -74,7 +87,8 @@ function LandingPage({ signOut, setError, user, usersCount }) {
               { merge: true }
             );
           setError("");
-          alert("You have successfully entered today's pool.");
+          setModalMessage("You have successfully entered today's pool.");
+          setModalOpen(true);
         } catch (error) {
           setError(error);
         }
@@ -119,6 +133,10 @@ function LandingPage({ signOut, setError, user, usersCount }) {
           fn={handleShoutoutPoolEntries}
           title=" Enter Today's Shoutout Pool"
         />
+
+        {modalOpen && (
+          <Modal modalMessage={modalMessage} setModalOpen={setModalOpen} />
+        )}
       </div>
     </>
   );

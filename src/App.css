@@ -248,7 +248,7 @@ a {
   transition: all 0.3s;
 }
 
-header {
+header.nav-header {
   display: flex;
   justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -257,7 +257,7 @@ header {
   margin-bottom: 3rem;
 }
 
-header > * {
+header.nav-header > * {
   display: flex;
   align-items: center;
 }
@@ -310,4 +310,70 @@ i {
   padding: 2px 5px;
   border-radius: 3px;
   margin-left: 0.3rem;
+}
+
+/* MODAL */
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+}
+
+.modal-container {
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.modal-container i {
+  font-size: 2rem;
+}
+
+.title-close-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.title-close-btn button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.modal-container .body {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.modal-container footer {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container footer button {
+  width: 150px;
+  height: 45px;
+  margin: 10px;
+  border: none;
+  background-color: #5585fd;
+  color: white;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
 }
