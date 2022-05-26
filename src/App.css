@@ -265,7 +265,7 @@ header.nav-header > * {
 .list-item {
   display: flex;
   flex-direction: column-reverse;
-  margin: 0 2rem;
+  margin: 1rem;
   transition: all 0.3s;
 }
 
@@ -376,4 +376,14 @@ i {
   border-radius: 8px;
   font-size: 20px;
   cursor: pointer;
+}
+
+/* HOW IT WORKS */
+ol li {
+  list-style: inherit;
+  text-align: initial;
+}
+
+.hiw-content {
+  font-size: 1.2rem;
 }

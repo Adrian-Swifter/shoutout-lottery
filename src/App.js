@@ -16,6 +16,7 @@ import passwordIcon from "./assets/lock 1.svg";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
 import LandingPage from "./components/LandingPage";
+import HowItWorks from "./routes/HowItWorks";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -81,6 +82,16 @@ function App() {
                 userIcon={userIcon}
                 passwordIcon={passwordIcon}
                 loginIcon={loginIcon}
+                user={user}
+                usersCount={usersCount}
+                signOut={signOut}
+              />
+            }
+          />
+          <Route
+            path="/how-it-works"
+            element={
+              <HowItWorks
                 user={user}
                 usersCount={usersCount}
                 signOut={signOut}

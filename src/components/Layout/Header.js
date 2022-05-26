@@ -26,6 +26,11 @@ function Header({ user, usersCount, signOut }) {
             <Link to="/register">Register</Link>
             <i className="fa-solid fa-user-plus"></i>
           </li>
+
+          <li className="list-item">
+            <Link to="/how-it-works">How It Works</Link>
+            <i className="fa-solid fa-question"></i>
+          </li>
         </ul>
       </nav>
 
