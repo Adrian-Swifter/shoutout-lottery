@@ -62,6 +62,7 @@ function LandingPage({
       setModalMessage("Please login first.");
       setModalOpen(true);
     } else {
+      user.reload();
       if (poolEntriesIDs.includes(user.uid)) {
         setModalMessage("You have already entered today's pool.");
         setModalOpen(true);
@@ -72,6 +73,11 @@ function LandingPage({
             " min ago. Please wait for " +
             (5 - minutes) +
             " min."
+        );
+        setModalOpen(true);
+      } else if (user.emailVerified === false) {
+        setModalMessage(
+          "You need to verify your email address in order to ented the shoutout pool"
         );
         setModalOpen(true);
       } else {

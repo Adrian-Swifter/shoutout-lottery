@@ -8,9 +8,13 @@ function HowItWorks({ user, usersCount, signOut }) {
       <h3 className="main-heading">How It Works?</h3>
       <div className="hiw-content">
         <p>
-          ***APP NAME*** is a website where you can win 24h promotion of your
-          website URL. You can enter to win every day and only one winner will
-          be chosen every 24h.
+          ***APP NAME*** is a website where you can win promotion or shoutout
+          for your website. You can enter to win every 24h and only one winner
+          will be chosen randomly when the time runs out.
+        </p>
+        <p>
+          In the upper left corner you can see the number of registered users so
+          in every moment you can see what could be the possible reach
         </p>
         <ol>
           <li>

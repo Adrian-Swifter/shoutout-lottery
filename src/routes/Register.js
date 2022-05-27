@@ -3,6 +3,7 @@ import Button from "../UI/Button";
 import { auth, app } from "../firebase/firebase_config";
 import { Link } from "react-router-dom";
 import Header from "../components/Layout/Header";
+import Modal from "../UI/Modal";
 
 function Register({
   createUserWithEmailAndPassword,
@@ -12,7 +13,12 @@ function Register({
   passwordIcon,
   user,
   usersCount,
-  signOut
+  signOut,
+  sendEmailVerification,
+  setModalOpen,
+  setModalMessage,
+  modalOpen,
+  modalMessage,
 }) {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -32,19 +38,28 @@ function Register({
         description,
         hasWon: null,
       });
+
       setError("");
       setRegisterEmail("");
       setRegisterPassword("");
       setWebsiteURL("");
       setDescription("");
+
+      sendEmailVerification(user.user).then(() => {
+        setModalMessage(
+          "You will need to verify your email address in order to enter the shoutout pool!"
+        );
+        setModalOpen(true);
+      });
     } catch (error) {
-      setError(error.message);
+      setModalMessage(error.message);
+      setModalOpen(true);
     }
   };
 
   return (
     <>
-      <Header user={user} usersCount={usersCount} signOut={signOut}/>
+      <Header user={user} usersCount={usersCount} signOut={signOut} />
       {user ? (
         <h1>You are logged in. 😎</h1>
       ) : (
@@ -107,6 +122,10 @@ function Register({
             />
           </Link>
         </div>
+      )}
+
+      {modalOpen && (
+        <Modal modalMessage={modalMessage} setModalOpen={setModalOpen} />
       )}
     </>
   );

@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendEmailVerification,
 } from "firebase/auth";
 import useFirestore from "./hooks/useFirestore";
 
@@ -85,6 +86,11 @@ function App() {
                 user={user}
                 usersCount={usersCount}
                 signOut={signOut}
+                sendEmailVerification={sendEmailVerification}
+                setModalMessage={setModalMessage}
+                modalMessage={modalMessage}
+                setModalOpen={setModalOpen}
+                modalOpen={modalOpen}
               />
             }
           />

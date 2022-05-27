@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 function Modal({ modalMessage, setModalOpen }) {
   return (
     <div className="modal-background">
