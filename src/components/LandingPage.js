@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import TimeLeft from "../components/TimeLeft";
 import useFirestore from "../hooks/useFirestore";
 import firebase from "firebase/compat/app";
-import { app } from "../firebase/firebase_config";
+import { app, auth } from "../firebase/firebase_config";
 import moment from "moment";
 import Header from "./Layout/Header";
 import Modal from "../UI/Modal";
@@ -52,17 +52,19 @@ function LandingPage({
     });
   }, [poolEntries.collData]);
 
-  const handleShoutoutPoolEntries = () => {
+  const handleShoutoutPoolEntries = async () => {
     const now = moment(new Date()); //todays date
     const end = hasWonTime; // another date
     const duration = moment.duration(now.diff(end));
     const minutes = Math.floor(duration.asMinutes());
 
+    await user.reload();
+    user = auth.currentUser;
+
     if (user === null) {
       setModalMessage("Please login first.");
       setModalOpen(true);
     } else {
-      user.reload();
       if (poolEntriesIDs.includes(user.uid)) {
         setModalMessage("You have already entered today's pool.");
         setModalOpen(true);
