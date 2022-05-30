@@ -45,7 +45,7 @@ function LandingPage({
       setHasClicked(loggedInUser[0]?.hasClicked);
     }
   }, [users.collData, last_winner.collData]);
-  console.log(user);
+
   useEffect(() => {
     poolEntries.collData.forEach((item) => {
       setPoolEntriesIDs(item.userIDArray);
@@ -85,7 +85,7 @@ function LandingPage({
           "You need to verify your email address in order to ented the shoutout pool"
         );
         setModalOpen(true);
-      } else if (!hasClicked) {
+      } else if (randomWinner && !hasClicked) {
         setModalMessage(
           "Please visit the link that is currently promoted in order to enter the pool."
         );
@@ -119,7 +119,7 @@ function LandingPage({
       });
     }
   };
-  console.log(hasClicked);
+
   return (
     <>
       <Header user={user} usersCount={usersCount} signOut={signOut} />
