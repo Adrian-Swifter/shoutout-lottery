@@ -22,6 +22,10 @@ function HowItWorks({ user, usersCount, signOut }) {
             menu.
           </li>
           <li>
+          &#128273;Verify that you are the owner of the email you registered with by
+            visiting the link we sent you.
+          </li>
+          <li>
             Go to the Home page and then you just press 'Enter Today's Shoutout
             Pool'
           </li>

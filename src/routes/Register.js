@@ -94,7 +94,7 @@ function Register({
           <p className="input-w-icon">
             <input
               type="text"
-              placeholder="Website URL"
+              placeholder="Website URL - starts with https://"
               onChange={(event) => {
                 setWebsiteURL(event.target.value);
               }}
@@ -105,7 +105,7 @@ function Register({
 
           <textarea
             type="text"
-            placeholder="Description"
+            placeholder="Short description of what you are promoting, or selling"
             onChange={(event) => {
               setDescription(event.target.value);
             }}
