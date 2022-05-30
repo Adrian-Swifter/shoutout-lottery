@@ -90,6 +90,7 @@ function startPoll(last_winner) {
       .doc(last_winner)
       .update({
         hasWon: moment().format("YYYY-MM-DD HH:mm:ss"),
+        hasClicked: false,
       });
   }
 }

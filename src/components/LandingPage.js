@@ -24,7 +24,7 @@ function LandingPage({
 
   const [shoutOutTime, setShoutOutTime] = useState(null);
   const [hasWonTime, setHasWonTime] = useState("");
-
+  const [hasClicked, setHasClicked] = useState(null);
   const users = useFirestore("users");
   const poolEntries = useFirestore("poolEntries");
   const last_winner = useFirestore("last_winner");
@@ -38,13 +38,14 @@ function LandingPage({
     });
 
     if (user) {
-      const loggedInUserHasWon = users.collData.filter((singleUser) => {
+      const loggedInUser = users.collData.filter((singleUser) => {
         return singleUser.id === user.uid;
       });
-      setHasWonTime(loggedInUserHasWon[0]?.hasWon);
+      setHasWonTime(loggedInUser[0]?.hasWon);
+      setHasClicked(loggedInUser[0]?.hasClicked);
     }
   }, [users.collData, last_winner.collData]);
-
+  console.log(user);
   useEffect(() => {
     poolEntries.collData.forEach((item) => {
       setPoolEntriesIDs(item.userIDArray);
@@ -58,8 +59,10 @@ function LandingPage({
     const duration = moment.duration(now.diff(end));
     const minutes = Math.floor(duration.asMinutes());
 
-    await user.reload();
-    user = auth.currentUser;
+    if (user !== null) {
+      await user.reload();
+      user = auth.currentUser;
+    }
 
     if (user === null) {
       setModalMessage("Please login first.");
@@ -80,6 +83,11 @@ function LandingPage({
       } else if (user.emailVerified === false) {
         setModalMessage(
           "You need to verify your email address in order to ented the shoutout pool"
+        );
+        setModalOpen(true);
+      } else if (!hasClicked) {
+        setModalMessage(
+          "Please visit the link that is currently promoted in order to enter the pool."
         );
         setModalOpen(true);
       } else {
@@ -104,6 +112,14 @@ function LandingPage({
     }
   };
 
+  const handleWebsiteURLClick = () => {
+    if (user !== null) {
+      firebase.firestore().collection("users").doc(user.uid).update({
+        hasClicked: true,
+      });
+    }
+  };
+  console.log(hasClicked);
   return (
     <>
       <Header user={user} usersCount={usersCount} signOut={signOut} />
@@ -116,6 +132,7 @@ function LandingPage({
               href={randomWinner?.websiteURL}
               target="_blank"
               rel="noreferrer noopener"
+              onClick={handleWebsiteURLClick}
             >
               {randomWinner?.websiteURL}
             </a>

@@ -37,6 +37,7 @@ function Register({
         websiteURL,
         description,
         hasWon: null,
+        hasClicked: null,
       });
 
       setError("");
