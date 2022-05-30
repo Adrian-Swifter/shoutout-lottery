@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import { auth } from "../firebase/firebase_config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Layout/Header";
 
 function Login({
@@ -12,10 +12,11 @@ function Login({
   signInWithEmailAndPassword,
   user,
   usersCount,
-  signOut
+  signOut,
 }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
@@ -27,13 +28,14 @@ function Login({
       setError("");
       setLoginEmail("");
       setLoginPassword("");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
   return (
     <>
-      <Header user={user} usersCount={usersCount} signOut={signOut}/>
+      <Header user={user} usersCount={usersCount} signOut={signOut} />
       {user ? (
         <h1>You are logged in. 😎</h1>
       ) : (

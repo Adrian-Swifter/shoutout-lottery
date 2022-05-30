@@ -1,10 +1,12 @@
 import React from "react";
 import { auth } from "../../firebase/firebase_config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header({ user, usersCount, signOut }) {
+  const navigate = useNavigate();
   const logout = async () => {
     await signOut(auth);
+    navigate("/");
   };
 
   return (
@@ -38,7 +40,9 @@ function Header({ user, usersCount, signOut }) {
         <div className="logged-user">
           <p>
             <i className="fa-solid fa-user"></i>
-            <span>{user?.email}</span>
+            <Link to={`/user/${user.uid}`}>
+              <span>{user?.email}</span>
+            </Link>
           </p>
 
           <button className="btn secondary-btn" onClick={logout}>

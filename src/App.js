@@ -20,6 +20,7 @@ import LandingPage from "./components/LandingPage";
 import HowItWorks from "./routes/HowItWorks";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserProfile from "./routes/UserProfile";
 
 function App() {
   const [error, setError] = useState("");
@@ -56,6 +57,7 @@ function App() {
                 modalOpen={modalOpen}
                 modalMessage={modalMessage}
                 setModalMessage={setModalMessage}
+                users={users}
               />
             }
           />
@@ -101,6 +103,18 @@ function App() {
                 user={user}
                 usersCount={usersCount}
                 signOut={signOut}
+              />
+            }
+          />
+
+          <Route
+            path="/user/:id"
+            element={
+              <UserProfile
+                signOut={signOut}
+                user={user}
+                usersCount={usersCount}
+                users={users}
               />
             }
           />

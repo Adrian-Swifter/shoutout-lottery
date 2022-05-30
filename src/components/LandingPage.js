@@ -17,15 +17,14 @@ function LandingPage({
   setModalOpen,
   setModalMessage,
   modalMessage,
+  users,
 }) {
   const [randomWinner, setRandomWinner] = useState(undefined);
-
   const [poolEntriesIDs, setPoolEntriesIDs] = useState([]);
-
   const [shoutOutTime, setShoutOutTime] = useState(null);
   const [hasWonTime, setHasWonTime] = useState("");
   const [hasClicked, setHasClicked] = useState(null);
-  const users = useFirestore("users");
+  
   const poolEntries = useFirestore("poolEntries");
   const last_winner = useFirestore("last_winner");
 

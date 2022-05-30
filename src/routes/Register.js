@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import { auth, app } from "../firebase/firebase_config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Layout/Header";
 import Modal from "../UI/Modal";
 
@@ -24,6 +24,7 @@ function Register({
   const [registerPassword, setRegisterPassword] = useState("");
   const [websiteURL, setWebsiteURL] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const register = async () => {
     try {
@@ -52,6 +53,7 @@ function Register({
         );
         setModalOpen(true);
       });
+      navigate("/");
     } catch (error) {
       setModalMessage(error.message);
       setModalOpen(true);
