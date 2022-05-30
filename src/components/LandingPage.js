@@ -131,7 +131,7 @@ function LandingPage({
           </p>
         </main>
       ) : (
-        <p>Nothing to see here :/</p>
+        <p>No winner is picked for this round. &#129402;</p>
       )}
       <h3 className="main-heading">Next Shoutout in:</h3>
       <TimeLeft shoutOutTime={shoutOutTime} />
