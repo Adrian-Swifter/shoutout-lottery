@@ -10,7 +10,7 @@ function UserProfile({ user, usersCount, signOut, users }) {
 
     setCurrentUser(currU[0]);
   }, [users.collData]);
-  console.log(currentUser);
+
   return (
     <div>
       <Header user={user} usersCount={usersCount} signOut={signOut} />

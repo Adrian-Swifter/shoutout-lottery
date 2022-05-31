@@ -101,6 +101,7 @@ button.secondary-btn {
 .main-winner-section {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 7px;
+  margin: 0 1rem;
 }
 
 .random-winner-link {
@@ -425,5 +426,17 @@ ol li {
 
   .no-of-users i {
     color: #fff;
+  }
+
+  .timer-wrapper {
+    display: flex;
+  }
+
+  .timer-wrapper > span {
+    margin: 0.5rem;
+  }
+
+  .timer-number {
+    margin: 2px;
   }
 }
