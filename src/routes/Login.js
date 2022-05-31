@@ -13,6 +13,9 @@ function Login({
   user,
   usersCount,
   signOut,
+  sendPasswordResetEmail,
+  setModalMessage,
+  setModalOpen,
 }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -33,6 +36,21 @@ function Login({
       setError(error.message);
     }
   };
+
+  const handlePasswordReset = async () => {
+    await sendPasswordResetEmail(auth, loginEmail)
+      .then(() => {
+        setModalMessage(
+          "Please check your email for password reset instructions."
+        );
+        setModalOpen(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   return (
     <>
       <Header user={user} usersCount={usersCount} signOut={signOut} />
@@ -66,7 +84,15 @@ function Login({
             />
           </p>
           <Button classes="btn primary-btn" fn={login} title="Login" />
-          <p>Forgot your pasword? Click here to reset.</p>
+          <p>
+            Forgot your pasword?{" "}
+            <Button
+              classes="btn"
+              fn={handlePasswordReset}
+              title="Click here to reset"
+            />
+            .
+          </p>
 
           <Link to="/register">
             <Button classes="btn secondary-btn" title="Register New Account" />
