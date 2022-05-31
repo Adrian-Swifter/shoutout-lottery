@@ -22,13 +22,15 @@ function HowItWorks({ user, usersCount, signOut }) {
             menu.
           </li>
           <li>
-          &#128273;Verify that you are the owner of the email you registered with by
-            visiting the link we sent you.
+            &#128273;Verify that you are the owner of the email you registered
+            with by visiting the link we sent you.
           </li>
           <li>
-            Go to the Home page and then you just press 'Enter Today's Shoutout
-            Pool'
+            If there is a link that is promoted at the time you want to enter
+            the pool, you will need to visit that link in order to be able to
+            enter.
           </li>
+          <li>Press 'Enter Today's Shoutout Pool'</li>
           <li>
             You are now a part of a pool of users that chose to participate in
             the next📆 shoutout lottery.
