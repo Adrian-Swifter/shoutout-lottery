@@ -26,7 +26,7 @@ p {
 }
 
 .main-heading {
-  font-size: 30px;
+  font-size: 2rem;
   color: #56599c;
 }
 
@@ -44,7 +44,7 @@ p {
 }
 
 .form p {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .input-w-icon {
@@ -63,7 +63,7 @@ p {
   border: none;
   padding-left: 5px;
   height: 100%;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 700;
   font-family: var(--main-font);
   color: rgba(0, 0, 0, 0.3);
@@ -71,7 +71,7 @@ p {
 
 .form textarea {
   background-color: #c4c4c4;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 700;
   font-family: var(--main-font);
   color: rgba(0, 0, 0, 0.3);
@@ -82,7 +82,7 @@ p {
   height: 2rem;
   border: none;
   background-color: #fcfdff;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 700;
   font-family: var(--main-font);
   cursor: pointer;
@@ -194,7 +194,7 @@ button.secondary-btn {
   border-radius: 10px;
   text-align: center;
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #ffffff;
   text-shadow: #7d7d7d 0px 1px 0px;
   border-color: #ffffff;
@@ -283,7 +283,7 @@ header.nav-header > * {
 }
 
 i {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   transition: all 0.3s;
   color: #56599c;
 }
@@ -331,7 +331,8 @@ i {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  padding: 1.75rem;
+  margin: 1rem;
 }
 
 .modal-container i {
@@ -346,7 +347,7 @@ i {
 .title-close-btn button {
   background-color: transparent;
   border: none;
-  font-size: 25px;
+  font-size: 1.75rem;
   cursor: pointer;
 }
 
@@ -374,7 +375,7 @@ i {
   background-color: #5585fd;
   color: white;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 
@@ -386,4 +387,43 @@ ol li {
 
 .hiw-content {
   font-size: 1.2rem;
+  padding: 0 1rem;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 800px) {
+  :root {
+    font-size: 12px;
+  }
+  .nav-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-header ul {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .list-item {
+    margin: initial;
+  }
+
+  .logged-user {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .no-of-users {
+    display: flex;
+    justify-content: space-between;
+    background-color: #56599c;
+    padding: 0 0.3rem;
+    border-radius: 3px;
+  }
+
+  .no-of-users i {
+    color: #fff;
+  }
 }
