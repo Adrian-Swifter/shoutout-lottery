@@ -75,7 +75,7 @@ function startPoll(last_winner) {
     .update({
       userIDArray: [],
       resultDeclareTime: moment()
-        .add(1440, "m")
+        .add(1, "m")
         .utc()
         .format("YYYY-MM-DD HH:mm:ss"),
     });
