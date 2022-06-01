@@ -1,13 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 const firebase = require("firebase-admin");
-// const serviceAccount = require("./shoutout-efa62-firebase-adminsdk-2xcbz-44d6796157.json");
 const moment = require("moment");
 const app = express();
-// firebase.initializeApp({
-//   credential: firebase.credential.cert(serviceAccount),
-//   storageBucket: "shoutout-efa62.appspot.com",
-// });
+
 firebase.initializeApp({
   credential: firebase.credential.cert({
     type: process.env.FIREBASE_TYPE,
@@ -111,6 +107,4 @@ function startPoll(last_winner) {
       });
   }
 }
-app.listen(process.env.PORT || 3000, () =>
-  console.log("Server is listening to 5000")
-);
+app.listen(process.env.PORT || 80, () => console.log("Server started."));
