@@ -111,4 +111,6 @@ function startPoll(last_winner) {
       });
   }
 }
-app.listen(5000, () => console.log("Server is listening to 5000"));
+app.listen(process.env.PORT || 3000, () =>
+  console.log("Server is listening to 5000")
+);
