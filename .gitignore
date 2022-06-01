@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#firebase config
+shoutout-efa62-firebase-adminsdk-2xcbz-44d6796157.json
+.env
+
 # testing
 /coverage
 
