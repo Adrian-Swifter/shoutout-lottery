@@ -8,9 +8,16 @@ function HowItWorks({ user, usersCount, signOut }) {
       <h3 className="main-heading">How It Works?</h3>
       <div className="hiw-content">
         <p>
-          ***APP NAME*** is a website where you can win promotion or shoutout
-          for your website. You can enter to win every 24h and only one winner
-          will be chosen randomly when the time runs out.
+          <span
+            style={{ borderBottom: "4px solid #56599c", fontWeight: "bold" }}
+          >
+            Shoutizer
+          </span>{" "}
+          is a website where you can win promotion or shoutout for your website
+          (this can be any valid URL, Instagram profile page, your business
+          website, the product you are selling, and similar). You can enter to
+          win every 24h and only one winner will be chosen randomly when the
+          time runs out.
         </p>
         <p>
           In the upper left corner you can see the number of registered users so

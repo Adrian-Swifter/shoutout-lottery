@@ -24,7 +24,7 @@ function LandingPage({
   const [shoutOutTime, setShoutOutTime] = useState(null);
   const [hasWonTime, setHasWonTime] = useState("");
   const [hasClicked, setHasClicked] = useState(null);
-  
+
   const poolEntries = useFirestore("poolEntries");
   const last_winner = useFirestore("last_winner");
 
@@ -56,7 +56,7 @@ function LandingPage({
     const now = moment(new Date()); //todays date
     const end = hasWonTime; // another date
     const duration = moment.duration(now.diff(end));
-    const minutes = Math.floor(duration.asMinutes());
+    const hours = Math.floor(duration.asHours());
 
     if (user !== null) {
       await user.reload();
@@ -70,13 +70,13 @@ function LandingPage({
       if (poolEntriesIDs.includes(user.uid)) {
         setModalMessage("You have already entered today's pool.");
         setModalOpen(true);
-      } else if (hasWonTime !== null && minutes < 5) {
+      } else if (hasWonTime !== null && hours < 24) {
         setModalMessage(
           "You won " +
-            minutes +
-            " min ago. Please wait for " +
-            (5 - minutes) +
-            " min."
+            hours +
+            " hours ago. Please wait for " +
+            (24 - hours) +
+            " hours."
         );
         setModalOpen(true);
       } else if (user.emailVerified === false) {
