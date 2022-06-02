@@ -4,6 +4,16 @@ const firebase = require("firebase-admin");
 const moment = require("moment");
 const app = express();
 
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  });
+}
+
 firebase.initializeApp({
   credential: firebase.credential.cert({
     type: process.env.FIREBASE_TYPE,
