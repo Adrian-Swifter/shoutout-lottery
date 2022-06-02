@@ -72,7 +72,7 @@ function LandingPage({
         setModalOpen(true);
       } else if (hasWonTime !== null && hours < 24) {
         setModalMessage(
-          "You won the current shoutout. Please wait for timer to run out before entering again."
+          "Please wait for " + (24 - hours) + " hours before entering again."
         );
         setModalOpen(true);
       } else if (user.emailVerified === false) {
