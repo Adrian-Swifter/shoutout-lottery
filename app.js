@@ -3,7 +3,7 @@ require("dotenv").config();
 const firebase = require("firebase-admin");
 const moment = require("moment");
 const app = express();
-const path = require('node:path');
+const path = require("node:path");
 
 if (
   process.env.NODE_ENV === "production" ||
@@ -99,7 +99,7 @@ function startPoll(last_winner) {
     .update({
       userIDArray: [],
       resultDeclareTime: moment()
-        .add(1, "m")
+        .add(1440, "m")
         .utc()
         .format("YYYY-MM-DD HH:mm:ss"),
     });
