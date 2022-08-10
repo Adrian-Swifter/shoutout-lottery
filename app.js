@@ -4,9 +4,9 @@ const firebase = require("firebase-admin");
 const moment = require("moment");
 const app = express();
 const path = require("node:path");
-const secure = require('ssl-express-www');
+// const secure = require("ssl-express-www");
 
-app.use(secure);
+// app.use(secure);
 
 if (
   process.env.NODE_ENV === "production" ||
@@ -85,12 +85,13 @@ setInterval(async () => {
       // No last winner
       startPoll("");
     }
-  } else {
-    console.log(
-      "Waiting for Result Time : ",
-      moment.utc(nextPoolEndTime).local().format("YYYY-MM-DD hh:mm:ss")
-    );
   }
+  // else {
+  //   console.log(
+  //     "Waiting for Result Time : ",
+  //     moment.utc(nextPoolEndTime).local().format("YYYY-MM-DD hh:mm:ss")
+  //   );
+  // }
 }, 1000);
 
 function startPoll(last_winner) {
