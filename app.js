@@ -4,6 +4,9 @@ const firebase = require("firebase-admin");
 const moment = require("moment");
 const app = express();
 const path = require("node:path");
+const secure = require('ssl-express-www');
+
+app.use(secure);
 
 if (
   process.env.NODE_ENV === "production" ||
