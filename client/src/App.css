@@ -149,6 +149,10 @@ button.secondary-btn {
   margin-right: 30px;
 }
 
+.timer-wrapper>span:last-child {
+    margin-right: 0
+}
+
 .timer-number {
   font-size: 3rem;
   color: #ffffff;
