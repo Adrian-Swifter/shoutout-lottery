@@ -11,6 +11,7 @@
   font-family: atr;
   background-image: url(../assets/theoffice.jpg);
   background-size: cover;
+  background-position: center;
   padding: 5rem 1rem;
   color: #ffffff;
   position: relative;
