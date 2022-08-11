@@ -149,8 +149,8 @@ button.secondary-btn {
   margin-right: 30px;
 }
 
-.timer-wrapper>span:last-child {
-    margin-right: 0
+.timer-wrapper > span:last-child {
+  margin-right: 0;
 }
 
 .timer-number {
@@ -394,6 +394,8 @@ ol li {
   font-size: 1.2rem;
   padding: 0 1rem;
 }
+
+/* WASTE TIME SECTION */
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 800px) {
