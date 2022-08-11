@@ -23,3 +23,6 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+const appCheck = firebase.appCheck();
+appCheck.activate('6Ld8SmshAAAAAE5MSn7u-VMJhQfGQHYP5liTnl2Z', true);
