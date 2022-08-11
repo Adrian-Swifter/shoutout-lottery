@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import "./temp.css";
-// import American_Typewriter_Regular from ".././assets/fonts/atr/American_Typewriter_Regular.ttf"
 
 function TheOfficeRandomQuote() {
-  useEffect(() => {
-    const fetchOfficeQuote = async () => {
-      try {
-        const randomQuote = await (
-          await fetch("https://officeapi.dev/api/quotes/random")
-        ).json();
-        console.log(randomQuote);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-    fetchOfficeQuote();
-  }, []);
+  //   useEffect(() => {
+  //     const fetchOfficeQuote = async () => {
+  //       try {
+  //         const randomQuote = await fetch(
+  //           "https://officeapi.dev/api/quotes/random"
+  //         );
+  //         console.log(randomQuote);
+  //       } catch (e) {
+  //         console.log(e.message);
+  //       }
+  //     };
+  //     fetchOfficeQuote();
+  //   }, []);
   return (
     <div className="the-office-random-quote">
       <h2>Waste of time section</h2>
