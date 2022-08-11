@@ -159,7 +159,10 @@ function LandingPage({
           <Modal modalMessage={modalMessage} setModalOpen={setModalOpen} />
         )}
       </div>
-      <TheOfficeRandomQuote />
+      <TheOfficeRandomQuote
+        setModalMessage={setModalMessage}
+        setModalOpen={setModalOpen}
+      />
     </>
   );
 }
