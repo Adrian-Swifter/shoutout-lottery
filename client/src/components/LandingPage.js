@@ -54,10 +54,9 @@ function LandingPage({
   }, [poolEntries.collData]);
 
   const handleShoutoutPoolEntries = async () => {
-    const now = moment(new Date()); //todays date
-    const end = hasWonTime; // another date
-    const duration = moment.duration(now.diff(end));
-    const hours = Math.floor(duration.asHours());
+    const now = moment(new Date());
+    const duration = moment.duration(now.diff(hasWonTime));
+    const hours = Math.floor(duration.asHours() - 2);
 
     if (user !== null) {
       await user.reload();
