@@ -81,7 +81,7 @@ function LandingPage({
           "You need to verify your email address in order to ented the shoutout pool"
         );
         setModalOpen(true);
-      } else if (randomWinner && !hasClicked) {
+      } else if (randomWinner && hasClicked !== true) {
         setModalMessage(
           "Please visit the link that is currently promoted in order to enter the pool."
         );
