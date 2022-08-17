@@ -118,7 +118,15 @@ function startPoll(last_winner) {
       .doc(last_winner)
       .update({
         hasWon: moment().format("YYYY-MM-DD HH:mm:ss"),
-        hasClicked: false,
+      });
+    
+    firebase
+      .firestore().collection("users").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          doc.ref.update({
+             hasClicked: false,
+          });
+        });
       });
   }
 }
