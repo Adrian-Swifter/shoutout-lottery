@@ -151,7 +151,7 @@ function LandingPage({
         <Button
           classes="threed-btn"
           fn={handleShoutoutPoolEntries}
-          title=" Enter Today's Shoutout Pool"
+          title=" Enter Shoutout Pool"
         />
 
         {modalOpen && (
