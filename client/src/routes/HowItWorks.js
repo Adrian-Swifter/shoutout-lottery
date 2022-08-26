@@ -37,7 +37,7 @@ function HowItWorks({ user, usersCount, signOut }) {
             the pool, you will need to visit that link in order to be able to
             enter.
           </li>
-          <li>Press 'Enter Today's Shoutout Pool'</li>
+          <li>Press 'Enter Shoutout Pool'</li>
           <li>
             You are now a part of a pool of users that chose to participate in
             the next📆 shoutout lottery.
