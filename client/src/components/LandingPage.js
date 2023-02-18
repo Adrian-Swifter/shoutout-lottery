@@ -7,8 +7,8 @@ import { app, auth } from "../firebase/firebase_config";
 import moment from "moment";
 import Header from "./Layout/Header";
 import Modal from "../UI/Modal";
-import TheOfficeRandomQuote from "./TheOfficeRandomQuote";
-import RandomMeme from "./RandomMeme";
+// import TheOfficeRandomQuote from "./TheOfficeRandomQuote";
+// import RandomMeme from "./RandomMeme";
 
 function LandingPage({
   signOut,
@@ -159,12 +159,12 @@ function LandingPage({
           <Modal modalMessage={modalMessage} setModalOpen={setModalOpen} />
         )}
       </div>
-      <TheOfficeRandomQuote
-        setModalMessage={setModalMessage}
-        setModalOpen={setModalOpen}
-      />
+//       <TheOfficeRandomQuote
+//         setModalMessage={setModalMessage}
+//         setModalOpen={setModalOpen}
+//       />
 
-      <RandomMeme />
+//       <RandomMeme />
     </>
   );
 }
