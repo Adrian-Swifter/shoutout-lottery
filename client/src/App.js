@@ -20,8 +20,10 @@ import Register from "./routes/Register";
 import LandingPage from "./components/LandingPage";
 import HowItWorks from "./routes/HowItWorks";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import UserProfile from "./routes/UserProfile";
+import TermsOfService from "./routes/TermsOfService";
+import PrivacyPolicy from "./routes/PrivacyPolicy";
 
 function App() {
   const [error, setError] = useState("");
@@ -104,6 +106,28 @@ function App() {
             path="/how-it-works"
             element={
               <HowItWorks
+                user={user}
+                usersCount={usersCount}
+                signOut={signOut}
+              />
+            }
+          />
+
+          <Route
+            path="/terms-of-service"
+            element={
+              <TermsOfService
+                user={user}
+                usersCount={usersCount}
+                signOut={signOut}
+              />
+            }
+          />
+
+          <Route
+            path="/privacy-policy"
+            element={
+              <PrivacyPolicy
                 user={user}
                 usersCount={usersCount}
                 signOut={signOut}
