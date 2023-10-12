@@ -132,8 +132,9 @@ function startPoll(last_winner) {
 
     // Query Firestore to get the winner's email
     const winnerRef = firebase.firestore().collection("users").doc(last_winner);
-    
-    winnerRef.get()
+
+    winnerRef
+      .get()
       .then((doc) => {
         if (doc.exists) {
           const winnerEmail = doc.data().email;
@@ -146,7 +147,7 @@ function startPoll(last_winner) {
             text: "You have won the shoutout. Your website will be on display for the next 24 hours!",
           };
 
-          transporter.sendMail(mailOptions, function(error, info) {
+          transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.error("Error sending email: " + error);
             } else {
@@ -160,7 +161,6 @@ function startPoll(last_winner) {
       .catch((error) => {
         console.error("Error fetching winner's document:", error);
       });
-  }
 
     firebase
       .firestore()
