@@ -5,6 +5,16 @@ const moment = require("moment");
 const app = express();
 const path = require("node:path");
 const secure = require("ssl-express-www");
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.sendgrid.net",
+  port: 587,
+  auth: {
+    user: "apikey",
+    pass: process.env.SENDGRID_API_KEY,
+  },
+});
 
 app.use(secure);
 
@@ -119,12 +129,47 @@ function startPoll(last_winner) {
       .update({
         hasWon: moment().format("YYYY-MM-DD HH:mm:ss"),
       });
+
+    // Query Firestore to get the winner's email
+    const winnerRef = firebase.firestore().collection("users").doc(last_winner);
     
+    winnerRef.get()
+      .then((doc) => {
+        if (doc.exists) {
+          const winnerEmail = doc.data().email;
+
+          // Send an email to the winner
+          const mailOptions = {
+            from: "contact@milosdraskovic.com", // Replace with your verified sender email from SendGrid
+            to: winnerEmail,
+            subject: "Congratulations! You are the winner",
+            text: "You have won the shoutout. Your website will be on display for the next 24 hours!",
+          };
+
+          transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+              console.error("Error sending email: " + error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        } else {
+          console.error("Winner's document not found in Firestore");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching winner's document:", error);
+      });
+  }
+
     firebase
-      .firestore().collection("users").get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+      .firestore()
+      .collection("users")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
           doc.ref.update({
-             hasClicked: false,
+            hasClicked: false,
           });
         });
       });
